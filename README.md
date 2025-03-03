@@ -22,11 +22,18 @@
 }
 ```
 
-Пример ответа:
+Пример положительного ответа:
 ```
 {
     "accessType": "ACCEPTED",
     "message": "Access granted"
+}
+```
+Пример отрицательного ответа:
+```
+{
+    "accessType": "DENIED",
+    "message": "Access denied"
 }
 ```
 Пример ответа на некорректный запрос:
