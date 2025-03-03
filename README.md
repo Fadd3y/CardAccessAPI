@@ -29,3 +29,10 @@
     "message": "Access granted"
 }
 ```
+Пример ответа на некорректный запрос:
+```
+{
+    "accessType": "DENIED",
+    "message": "field: personId, error_message: 'personId' field is empty; field: personId, error_message: Person not found; field: authority, error_message: Authority not found; "
+}
+```
