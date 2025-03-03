@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Start page</title>
+    <style>
+        .wrapper {
+            width:400px;
+            height:400px;
+            margin: 0 auto;
+            background:#ccc;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center; /* Центрирование по горизонтали */
+            align-items: center; /*  Центрирование по вертикали *!*/
+            height: 80vh; /* Растягиваем контейнер на всю высоту экрана */
+        }
+
+        .info {
+            padding-left: 35px;
+            padding-top: 10px;
+            padding-right: 35px;
+        }
+    </style>
+</head>
+<body>
+<div class="center">
+    <div class="wrapper">
+        <div class="info">
+            <h1>Меню сайта</h1>
+            <hr>
+            <h3 th:text="'Здравстуйте, ' + ${person.getName()}"></h3>
+            <form action="/people/info">
+                <input type="submit" value="Информация о пользователе">
+            </form>
+            <form th:method="POST" th:action="@{/process_logout}">
+                <input type="submit" value="Выйти из системы">
+            </form>
+            <hr>
+            <div th:if="${role.equals('ROLE_ADMIN')}">
+                <h3>Функции администратора</h3>
+                <table>
+                    <tr>
+                        <td>Сотрудники:</td>
+                        <td>
+                            <form action="/admin/people">
+                                <input type="submit" value="Список">
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/admin/people/new">
+                                <input type="submit" value="Добавить">
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Права доступа:</td>
+                        <td>
+                            <form action="/admin/authorities">
+                                <input type="submit" value="Список">
+                            </form>
+
+                        </td>
+                        <td>
+                            <form action="/admin/authorities/new">
+                                <input type="submit" value="Добавить">
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Должности:</td>
+                        <td>
+                            <form action="/admin/job_titles">
+                                <input type="submit" value="Список">
+                            </form>
+
+                        </td>
+                        <td>
+                            <form action="/admin/job_titles/new">
+                                <input type="submit" value="Добавить">
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

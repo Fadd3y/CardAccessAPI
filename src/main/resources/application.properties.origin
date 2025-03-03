@@ -1,0 +1,11 @@
+spring.application.name=CardAccessAPI
+
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=
+spring.datasource.username=
+spring.datasource.password=
+
+spring.jpa.show-sql=true
+spring.data.jdbc.dialect=postgresql
+
+spring.mvc.hiddenmethod.filter.enabled=true

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrapper {
+            width:400px;
+            height:600px;
+            margin: 0 auto;
+            background:#ccc;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center; /* Центрирование по горизонтали */
+            align-items: center; /*  Центрирование по вертикали *!*/
+            height: 80vh; /* Растягиваем контейнер на всю высоту экрана */
+        }
+
+        .info {
+            padding-left: 35px;
+            padding-top: 10px;
+            padding-right: 35px;
+        }
+    </style>
+</head>
+<body>
+<div class="center">
+    <div class="wrapper">
+        <div class="info">
+            <h2>Список людей</h2>
+            <hr>
+            <div style="overflow-y: auto; height: 450px">
+                <div th:each="person : ${people}">
+                    <a th:href="@{/admin/people/{id} (id=${person.getId()})}" th:text="${person.getName()}"></a>
+                </div>
+            </div>
+
+            <form th:action="@{/homepage}">
+                <input type="submit" value="На домашнюю страницу">
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

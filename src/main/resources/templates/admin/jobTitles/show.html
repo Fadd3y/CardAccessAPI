@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job titles</title>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 10px;
+        }
+
+        ul {
+            padding-right: 20px;
+        }
+        .wrapper {
+            width:450px;
+            height:600px;
+            margin: 0 auto;
+            background:#ccc;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center; /* Центрирование по горизонтали */
+            align-items: center; /*  Центрирование по вертикали *!*/
+            height: 80vh; /* Растягиваем контейнер на всю высоту экрана */
+        }
+
+        .info {
+            padding-left: 35px;
+            padding-top: 10px;
+            padding-right: 35px;
+        }
+    </style>
+</head>
+<body>
+<div class="center">
+    <div class="wrapper">
+        <div class="info">
+            <h2>Список профессий с правами доступа</h2>
+            <div style="overflow-y: auto; height: 400px">
+                <table>
+                    <tr>
+                        <th>Название</th>
+                        <th>Права доступа</th>
+                        <th>Действия</th>
+                    </tr>
+                    <tr th:each="jobTitle : ${jobTitles}">
+                        <td th:text="${jobTitle.getName()}"></td>
+                        <td>
+                            <ul>
+                                <li th:each="authority : ${jobTitle.getOwningAuthorities()}" th:text="${authority.getName()}"></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <form th:method="DELETE" th:action="@{/admin/job_titles/{id} (id = ${jobTitle.getId()})}">
+                                <input type="submit" value="Удалить">
+                            </form>
+                            <form th:action="@{/admin/job_titles/{id}/edit (id = ${jobTitle.getId()})}">
+                                <input type="submit" value="Изменить">
+                            </form>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <br>
+            <form th:action="@{/homepage}">
+                <input type="submit" value="На домашнюю страницу">
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

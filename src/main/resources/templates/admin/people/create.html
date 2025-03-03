@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create user</title>
+    <style>
+        .wrapper {
+            width: 400px;
+            height: 300px;
+            margin: 0 auto;
+            background: #ccc;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center; /* Центрирование по горизонтали */
+            align-items: center; /*  Центрирование по вертикали *!*/
+            height: 80vh; /* Растягиваем контейнер на всю высоту экрана */
+        }
+
+        form {
+            padding-left: 35px;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="center">
+    <div class="wrapper">
+        <form th:method="POST" th:action="@{/templates/admin/people}" th:object="${person}">
+            <h2>Добавление сотрудника</h2>
+            <label for="name">Введите ФИО: </label>
+            <input id="name" type="text" th:field="*{name}">
+            <div style="color: orangered" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+            <br>
+            <label for="username">Введите логин: </label>
+            <input id="username" type="text" th:field="*{username}">
+            <div style="color: orangered" th:if="${#fields.hasErrors('username')}" th:errors="*{username}" ></div>
+            <br>
+            <label for="password">Введите пароль: </label>
+            <input id="password" type="password" th:field="*{password}">
+            <div style="color: orangered" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></div>
+
+            <fieldset style="width: 300px;">
+                <legend>Роль пользователя в системе:</legend>
+                <div>
+                    <input type="radio" id="contactChoice1" name="systemRole" value="ROLE_ADMIN" th:field="*{role}"/>
+                    <label for="contactChoice1">Администратор</label>
+
+                    <input type="radio" id="contactChoice2" name="systemRole" value="ROLE_USER" th:field="*{role}"/>
+                    <label for="contactChoice2">Сотрудник</label>
+                </div>
+            </fieldset>
+
+            <label for="jobTitle">Выберите должность: </label>
+            <select th:field="*{jobTitleId}" id="jobTitle">
+                <option th:value="0" th:text="'Без должности'"></option>
+                <option th:each="jobTitle : ${jobTitles}" th:value="${jobTitle.getId()}"
+                        th:text="${jobTitle.getName()}"></option>
+            </select>
+            <!--            <input id="jobTitle" type="text" th:field="*{jobTitleId}">-->
+            <br>
+
+            <input type="submit" value="Создать сотрудника">
+        </form>
+        <form th:action="@{/homepage}">
+            <input type="submit" value="На домашнюю страницу">
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

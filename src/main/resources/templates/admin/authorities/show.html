@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Authorities</title>
+    <style>
+        table {
+            border-collapse: separate;
+            border-spacing: 10px;
+        }
+        .wrapper {
+            width:300px;
+            height:600px;
+            margin: 0 auto;
+            background:#ccc;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center; /* Центрирование по горизонтали */
+            align-items: center; /*  Центрирование по вертикали *!*/
+            height: 80vh; /* Растягиваем контейнер на всю высоту экрана */
+        }
+
+        .info {
+            padding-left: 35px;
+            padding-top: 10px;
+            padding-right: 35px;
+        }
+    </style>
+</head>
+<body>
+<div class="center">
+    <div class="wrapper">
+        <div class="info">
+            <h2>Список прав доступа</h2>
+            <div style="overflow-y: auto; height: 400px">
+                <table>
+                    <tr th:each="authority : ${authorities}">
+                        <td th:text="${authority.getName()}"> </td>
+                        <td>
+                            <form th:method="DELETE" th:action="@{/admin/authorities/{id} (id = ${authority.getId()})}">
+                                <input type="submit" value="Удалить">
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <br>
+            <form th:action="@{/homepage}">
+                <input type="submit" value="На домашнюю страницу">
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

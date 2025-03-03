@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit person</title>
+    <style>
+        .wrapper {
+            width:400px;
+            height:300px;
+            margin: 0 auto;
+            background:#ccc;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center; /* Центрирование по горизонтали */
+            align-items: center; /*  Центрирование по вертикали *!*/
+            height: 80vh; /* Растягиваем контейнер на всю высоту экрана */
+        }
+
+        .info {
+            padding-left: 35px;
+            padding-top: 10px;
+            padding-right: 35px;
+        }
+    </style>
+</head>
+<body>
+<div class="center">
+    <div class="wrapper">
+        <div class="info">
+            <h2>Редактирование сотрудника</h2>
+            <form th:method="PATCH" th:action="@{/admin/people/{id} (id = ${personToUpdate.getId()})}" th:object="${personToUpdate}">
+                <label for="name">ФИО: </label>
+                <input id="name" type="text" th:value="${personToUpdate.getName()}" th:field="*{name}">
+                <div style="color: orangered" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                <fieldset style="width: 300px;">
+                    <legend>Роль пользователя в системе:</legend>
+                    <div>
+                        <input type="radio" id="role1" name="systemRole" value="ROLE_ADMIN" th:field="*{role}"
+                               th:checked="${personToUpdate.getRole() == 'ROLE_ADMIN'}"/>
+                        <label for="role1">Администратор</label>
+
+                        <input type="radio" id="role2" name="systemRole" value="ROLE_USER" th:field="*{role}"
+                               th:checked="${personToUpdate.getRole() == 'ROLE_USER'}"/>
+                        <label for="role2">Сотрудник</label>
+                    </div>
+                </fieldset>
+                <label for="jobTitle">Выберите должность: </label>
+                <select th:field="*{jobTitleId}" id="jobTitle">
+                    <option th:value="0" th:text="'Без должности'"></option>
+                    <option th:each="jobTitle : ${jobTitles}"
+                            th:value="${jobTitle.getId()}"
+                            th:text="${jobTitle.getName()}"
+                            th:selected="${personToUpdate.getJobTitleId() == jobTitle.getId()}">
+                    </option>
+                </select>
+                <br>
+                <input type="submit" value="Сохранить">
+            </form>
+            <br>
+            <form th:action="@{/admin/people/{id} (id = ${personToUpdate.getId()})}">
+                <input type="submit" value="На страницу пользователя">
+            </form>
+            <form th:action="@{/homepage}">
+                <input type="submit" value="На домашнюю страницу">
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

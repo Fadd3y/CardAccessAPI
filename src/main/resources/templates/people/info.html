@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Information</title>
+    <style>
+        .wrapper {
+            width:400px;
+            height:550px;
+            margin: 0 auto;
+            background:#ccc;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center; /* Центрирование по горизонтали */
+            align-items: center; /*  Центрирование по вертикали *!*/
+            height: 80vh; /* Растягиваем контейнер на всю высоту экрана */
+        }
+
+        .info {
+            padding-left: 35px;
+            padding-top: 10px;
+            padding-right: 35px;
+        }
+    </style>
+</head>
+<body>
+<div class="center">
+    <div class="wrapper">
+        <div class="info">
+            <h2>Информация о пользователе</h2>
+            <p id="name" th:text="'ФИО: ' + ${person.getName()}"></p>
+            <!--<label for="jobTitle">Должность: </label>-->
+            <p id="jobTitle" th:text="'Должность: ' + (${person.getJobTitle()  == null} ? 'Должность не установлена' : ${person.getJobTitle().getName()})"></p>
+            <p th:text="'Username: ' + ${person.getUsername()}"></p>
+
+            <div th:if="${admin_tools}">
+                <p th:text="'Роль в системе: ' + ${person.getRole()}"></p>
+                <p th:text="'ID: ' + ${person.getId()}"></p>
+
+                <div th:if="${person.getJobTitle() != null}">
+                    <label for="authorities">Имеет доступ в: </label>
+                    <div style="overflow-y: auto; height: 150px">
+                        <ul id="authorities">
+                            <li th:each="authority : ${person.getJobTitle().getOwningAuthorities()}" th:text="${authority.getName()}"></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <form th:action="@{/admin/people/{id}/entries (id = ${person.getId()})}">
+                    <input type="submit" value="История посещений">
+                </form>
+                <form th:action="@{/admin/people/{id}/password/new (id = ${person.getId()})}">
+                    <input type="submit" value="Изменить пароль">
+                </form>
+                <form th:action="@{/admin/people/{id}/edit (id = ${person.getId()})}">
+                    <input type="submit" value="Изменить">
+                </form>
+                <form th:method="DELETE" th:action="@{/admin/people/{id} (id = ${person.getId()})}">
+                    <input type="submit" value="Удалить">
+                </form>
+            </div>
+            <hr>
+            <form th:if="${admin_tools}" th:action="@{/admin/people}">
+                <input type="submit" value="К списку людей">
+            </form>
+            <form th:action="@{/homepage}">
+                <input type="submit" value="На домашнюю страницу">
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .wrapper {
+            width:400px;
+            height:400px;
+            margin: 0 auto;
+            background:#ccc;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center; /* Центрирование по горизонтали */
+            align-items: center; /*  Центрирование по вертикали *!*/
+            height: 80vh; /* Растягиваем контейнер на всю высоту экрана */
+        }
+
+        .info {
+            padding-left: 35px;
+            padding-top: 10px;
+            padding-right: 35px;
+        }
+    </style>
+</head>
+<body>
+<div class="center">
+    <div class="wrapper">
+        <div class="info">
+            <h2>Создание должности</h2>
+            <form th:method="POST" th:action="@{/admin/job_titles}" th:object="${job_title}">
+                <label for="name">Название должности</label>
+                <input id="name" type="text" th:field="*{name}">
+                <div style="color: orangered" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                <br>
+                <div style="overflow-y: auto; height: 200px">
+                    <div th:each="authority : ${authorities}">
+                        <label>
+                            <input type="checkbox" th:field="*{owningAuthoritiesId}"
+                                   th:value="${authority.getId()}" th:text="${authority.getName()}">
+                        </label>
+                        <br>
+
+                    </div>
+                </div>
+
+                <input type="submit" value="Создать">
+            </form>
+            <br>
+            <form th:action="@{/homepage}">
+                <input type="submit" value="На домашнюю страницу">
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
