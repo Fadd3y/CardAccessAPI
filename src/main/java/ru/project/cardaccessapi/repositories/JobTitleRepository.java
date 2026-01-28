@@ -23,4 +23,9 @@ public interface JobTitleRepository extends JpaRepository<JobTitle, Integer> {
     Optional<JobTitle> findByIdWithAuthorities(@Param("id") int id);
 
     Optional<JobTitle> findByName(String name);
+
+    @Query("""
+        select j from JobTitle j where j.name = :name and j.id != :id
+        """)
+    Optional<JobTitle> findByNameAndNotSameId(String name, int id);
 }

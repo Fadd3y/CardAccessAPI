@@ -1,7 +1,6 @@
 package ru.project.cardaccessapi.services;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.project.cardaccessapi.models.JobTitle;
 import ru.project.cardaccessapi.repositories.JobTitleRepository;
@@ -45,6 +44,10 @@ public class JobTitleService {
 
     public Optional<JobTitle> findByName(String name) {
         return jobTitleRepository.findByName(name);
+    }
+
+    public Optional<JobTitle> findByNameAndNotSameId(String name, int id) {
+        return jobTitleRepository.findByNameAndNotSameId(name, id);
     }
 
 }

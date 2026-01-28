@@ -38,7 +38,8 @@ public class PeopleService {
                     findById(personId)
                             .orElseThrow(() -> new PersonNotFoundException("Person not found")),
                     authoritiesService.findByName(authorityName)
-                            .orElseThrow(() -> new AuthorityNotFoundException("Authority not found")));
+                            .orElseThrow(() -> new AuthorityNotFoundException("Authority not found"))
+            );
         }
 
         return hasAccess;

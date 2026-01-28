@@ -24,7 +24,7 @@ public class JobTitleDTOValidator implements Validator {
     public void validate(Object target, Errors errors) {
         JobTitleDTO jobTitleDTO = (JobTitleDTO) target;
 
-        if (jobTitleService.findByName(jobTitleDTO.getName()).isPresent()) {
+        if (jobTitleService.findByNameAndNotSameId(jobTitleDTO.getName(), jobTitleDTO.getId()).isPresent()) {
             errors.rejectValue("name", "", "This job title already exist");
         }
     }
