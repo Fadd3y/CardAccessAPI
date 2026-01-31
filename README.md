@@ -15,6 +15,7 @@
 5. Зайти в учетную запись (username: admin, password: admin)
 
 Пример запроса к приложению:
+http://localhost:8080/api/access
 ```
 {
     "personId": 1,
